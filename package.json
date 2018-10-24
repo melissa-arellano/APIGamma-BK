@@ -1,0 +1,22 @@
+{
+  "name": "api-aplication-sip-caster-performance",
+  "version": "0.0.1",
+  "description": "This is a the API Specification for the call center developed by TXM.",
+  "main": "index.js",
+  "scripts": {
+    "prestart": "npm install",
+    "start": "node index.js"
+  },
+  "keywords": [
+    "swagger"
+  ],
+  "license": "Unlicense",
+  "private": true,
+  "dependencies": {
+    "btoa": "^1.2.1",
+    "connect": "^3.6.6",
+    "js-yaml": "^3.12.0",
+    "mysql": "^2.16.0",
+    "swagger-tools": "^0.10.1"
+  }
+}

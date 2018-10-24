@@ -1,0 +1,370 @@
+---
+swagger: "2.0"
+info:
+  description: "This is a the API Specification for the call center developed by TXM."
+  version: "0.0.1"
+  title: "API Aplication Sip Caster Performance"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "marellano@txmglobal.com"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "localhost:3030"
+basePath: "/callCenter/api/v0"
+tags:
+- name: "AbandonedCalls"
+  description: "Get the sum of abandoned calls by country and date."
+- name: "AnsweredCalls"
+  description: "Get the sum of answered calls by country and date."
+- name: "CallsByDuration"
+  description: "Get the sum of calls by duration."
+- name: "AverageCallsTime"
+  description: "Get result of calls by average."
+schemes:
+- "http"
+paths:
+  /AbandonedCalls/getAbandonedCalls:
+    post:
+      tags:
+      - "AbandonedCalls"
+      summary: "Total abandoned calls filtered by country and date"
+      description: "This service returns the total of abandoned calls"
+      operationId: "getAbandonedCalls"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Service"
+        in: "formData"
+        description: "Name of the service"
+        required: true
+        type: "string"
+      - name: "Day"
+        in: "formData"
+        description: "Format YYYY-MM-DD"
+        required: true
+        type: "string"
+        format: "string"
+      - name: "Country"
+        in: "formData"
+        description: "Example: Brazil"
+        required: false
+        type: "string"
+      - name: "From"
+        in: "formData"
+        description: "Format HH:MM"
+        required: false
+        type: "string"
+      - name: "To"
+        in: "formData"
+        description: "Format HH:MM"
+        required: false
+        type: "string"
+      - name: "Threshold"
+        in: "formData"
+        description: "Number representing seconds"
+        required: false
+        type: "integer"
+      - name: "apiKey"
+        in: "formData"
+        description: "API Key to use the service"
+        required: true
+        type: "string"
+        format: "string"
+      responses:
+        200:
+          description: "Successful operation!"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/AbandonedCalls"
+        400:
+          description: "Error...!"
+      security:
+      - CallCenterCalls_auth:
+        - "read:AbandonedCallInformation"
+      x-swagger-router-controller: "AbandonedCalls"
+  /AnsweredCalls/getAnsweredCalls:
+    post:
+      tags:
+      - "AnsweredCalls"
+      summary: "Total answered calls filtered by country and date"
+      description: "This service returns the total of answered calls"
+      operationId: "getAnsweredCalls"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Service"
+        in: "formData"
+        description: "Name of the service"
+        required: true
+        type: "string"
+      - name: "Day"
+        in: "formData"
+        description: "Format YYYY-MM-DD"
+        required: true
+        type: "string"
+        format: "string"
+      - name: "Country"
+        in: "formData"
+        description: "Example: Brazil"
+        required: false
+        type: "string"
+      - name: "From"
+        in: "formData"
+        description: "Format HH:MM"
+        required: false
+        type: "string"
+      - name: "To"
+        in: "formData"
+        description: "Format HH:MM"
+        required: false
+        type: "string"
+      - name: "Threshold"
+        in: "formData"
+        description: "Number representing seconds"
+        required: false
+        type: "integer"
+      - name: "apiKey"
+        in: "formData"
+        description: "API Key to use the service"
+        required: true
+        type: "string"
+        format: "string"
+      responses:
+        200:
+          description: "Successful operation!"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/AnsweredCalls"
+        400:
+          description: "Error...!"
+      security:
+      - CallCenterCalls_auth:
+        - "read:AnsweredCallsInformation"
+      x-swagger-router-controller: "AnsweredCalls"
+  /CallsByDuration/getCallsByDuration:
+    post:
+      tags:
+      - "CallsByDuration"
+      summary: "Total calls filtered by duration"
+      description: "This service returns the total of calls by duration"
+      operationId: "getCallsByDuration"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Service"
+        in: "formData"
+        description: "Name of the service"
+        required: true
+        type: "string"
+      - name: "Day"
+        in: "formData"
+        description: "Format YYYY-MM-DD"
+        required: true
+        type: "string"
+        format: "string"
+      - name: "Country"
+        in: "formData"
+        description: "Example: Brazil"
+        required: false
+        type: "string"
+      - name: "From"
+        in: "formData"
+        description: "Format HH:MM"
+        required: false
+        type: "string"
+      - name: "To"
+        in: "formData"
+        description: "Format YYYY-MM-DD"
+        required: false
+        type: "string"
+      - name: "Threshold"
+        in: "formData"
+        description: "Number representing seconds"
+        required: false
+        type: "integer"
+      - name: "apiKey"
+        in: "formData"
+        description: "API Key to use the service"
+        required: true
+        type: "string"
+        format: "string"
+      responses:
+        200:
+          description: "Successful operation!"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/CallsByDuration"
+        400:
+          description: "Error...!"
+      security:
+      - CallCenterCalls_auth:
+        - "read:CallsByDurationInformation"
+      x-swagger-router-controller: "CallsByDuration"
+  /AverageCallsTime/getCallsbyAverage:
+    post:
+      tags:
+      - "AverageCallsTime"
+      summary: "Average Time Answered Calls"
+      description: "This service returns average time answered calls and answered\
+        \ calls average waiting time"
+      operationId: "getCallsbyAverage"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Service"
+        in: "formData"
+        description: "Name of the service"
+        required: true
+        type: "string"
+      - name: "Day"
+        in: "formData"
+        description: "Format YYYY-MM-DD"
+        required: true
+        type: "string"
+        format: "string"
+      - name: "Country"
+        in: "formData"
+        description: "Example: Brazil"
+        required: false
+        type: "string"
+      - name: "apiKey"
+        in: "formData"
+        description: "API Key to use the service"
+        required: true
+        type: "string"
+        format: "string"
+      responses:
+        200:
+          description: "Successful operation!"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/AverageCallsTime"
+        400:
+          description: "Error...!"
+      security:
+      - CallCenterCalls_auth:
+        - "read:AverageCallsTimeInformation"
+      x-swagger-router-controller: "AverageCallsTime"
+securityDefinitions:
+  CallCenterCalls_auth:
+    type: "oauth2"
+    authorizationUrl: "http://petstore.swagger.io/oauth/dialog"
+    flow: "implicit"
+    scopes:
+      read:AbandonedCallInformation: "Abandoned calls information"
+      read:AnsweredCallsInformation: "Answered calls information"
+      read:CallsByDurationInformation: "Information of calls by duration"
+      read:AverageCallsTimeInformation: "Information of calls by average"
+  api_key:
+    type: "apiKey"
+    name: "api_key"
+    in: "header"
+definitions:
+  AbandonedCalls:
+    type: "object"
+    properties:
+      Service:
+        type: "string"
+      Day:
+        type: "string"
+      Country:
+        type: "string"
+        example: "null"
+      CallsAbandoned:
+        type: "integer"
+    example:
+      Service: "ACARI"
+      Day: "2018-02-10"
+      Country: "Jamaica"
+      CallsAbandoned: 100
+      From: "08:00"
+      To: "15:00"
+      Threshold: 45
+      apiKey: "**********"
+    xml:
+      name: "Abandoned Calls"
+  AnsweredCalls:
+    type: "object"
+    properties:
+      Service:
+        type: "string"
+      Day:
+        type: "string"
+      Country:
+        type: "string"
+        example: "null"
+      CallsAnswered:
+        type: "integer"
+    example:
+      Service: "ACARI"
+      Day: "2018-02-10"
+      Country: "Jamaica"
+      CallsAnswered: 100
+      From: "08:00"
+      To: "15:00"
+      Threshold: 45
+      apiKey: "**********"
+    xml:
+      name: "Answered Calls"
+  CallsByDuration:
+    type: "object"
+    properties:
+      Service:
+        type: "string"
+      Dat:
+        type: "string"
+      Country:
+        type: "string"
+        example: "null"
+      CallsAnswered:
+        type: "integer"
+    example:
+      Service: "ACARI"
+      Day: "2018-02-10"
+      Country: "Jamaica"
+      CallsAnswered: 100
+      From: "08:00"
+      To: "15:00"
+      Threshold: 45
+      apiKey: "**********"
+    xml:
+      name: "Calls by duration"
+  AverageCallsTime:
+    type: "object"
+    properties:
+      Service:
+        type: "string"
+      Dat:
+        type: "string"
+      Country:
+        type: "string"
+        example: "null"
+      AverageTalkTimeDuration:
+        type: "integer"
+      AverageWaitingTimeOfCallsAnswered:
+        type: "integer"
+    example:
+      Service: "ACARI"
+      Day: "2018-02-10"
+      Country: "Jamaica"
+      AverageTalkTimeDuration: 100
+      AverageWaitingTimeOfCallsAnswered: 200
+      apiKey: "**********"
+    xml:
+      name: "Calls by duration"
+externalDocs:
+  description: "Find out more about Swagger"
+  url: "http://swagger.io"
